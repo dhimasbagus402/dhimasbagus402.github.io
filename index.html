@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dhimas Bagus — Tools &amp; Projects</title>
+<meta name="description" content="Small tools I build and release.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+<style>
+  :root {
+    --font: "Inter", system-ui, sans-serif;
+    --space-2: 5.6px; --space-3: 8.4px; --space-4: 11.2px; --space-6: 16.8px; --space-8: 22.4px;
+    --radius-sm: 4px; --radius-md: 8px; --radius-lg: 14px;
+    --accent-200: #e7e5fe; --accent-400: #b5abfc; --accent-500: #968ae0; --accent-600: #796cbf;
+    --neutral-500: #9397ab; --neutral-600: #75798c; --neutral-800: #3f424d; --neutral-300: #cfd3e5; --neutral-900: #292b31;
+    --section: #262a60; --section-glow: #353b80;
+  }
+  html[data-theme="dark"] {
+    --bg: #161826; --fg: #e9e9ed; --muted: var(--neutral-500); --edge: var(--neutral-800);
+    --accent: #9184d9; --line: color-mix(in srgb, #f3f5fe 15%, transparent);
+  }
+  html[data-theme="light"] {
+    --bg: #e9ecf7; --fg: var(--neutral-900); --muted: var(--neutral-600); --edge: var(--neutral-300);
+    --accent: var(--accent-600); --line: color-mix(in srgb, #292b31 18%, transparent);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; background: var(--bg); color: var(--fg);
+    font-family: var(--font); -webkit-font-smoothing: antialiased;
+  }
+  .page {
+    width: 100%; max-width: 760px; margin: 0 auto;
+    padding: calc(var(--space-8) * 2) calc(var(--space-8) * 2) calc(var(--space-8) * 1.5);
+    display: flex; flex-direction: column; justify-content: center;
+    gap: calc(var(--space-8) * 1.8); min-height: 100vh;
+  }
+  .top { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); }
+  .brand { display: flex; align-items: center; gap: var(--space-3); font: 500 13px/1 var(--font); letter-spacing: .02em; }
+  .mark { width: 24px; height: 24px; border-radius: var(--radius-sm); background: var(--accent); }
+  .theme-btn {
+    display: flex; align-items: center; gap: var(--space-2);
+    padding: var(--space-3) var(--space-4); border-radius: var(--radius-md);
+    border: 1px solid var(--edge); background: transparent; color: var(--muted);
+    font: 500 11px/1 var(--font); cursor: pointer;
+    transition: color .16s ease, border-color .16s ease;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn:active { color: var(--accent-400); }
+  .intro { display: flex; flex-direction: column; gap: var(--space-6); }
+  h1 { margin: 0; font: 500 clamp(38px, 6vw, 54px)/1.02 var(--font); letter-spacing: -.035em; }
+  .lede { margin: 0; max-width: 38ch; font: 400 15px/1.6 var(--font); color: var(--muted); text-wrap: pretty; }
+  .rule { height: 1px; background: linear-gradient(90deg, transparent, var(--line) 48px, var(--line) calc(100% - 48px), transparent); }
+  .links { display: flex; flex-direction: column; gap: var(--space-4); }
+  .link.one { background: linear-gradient(160deg, #EC3013, #842618EB); }
+  .link.two { background: linear-gradient(160deg, #365389, #293184EB); }
+  .link {
+    display: flex; gap: var(--space-6); align-items: flex-start; justify-content: space-between;
+    padding: calc(var(--space-8) * 1.1); border-radius: var(--radius-lg);
+    background: linear-gradient(160deg, var(--section-glow), var(--section) 62%);
+    text-decoration: none; transition: transform .16s ease, box-shadow .16s ease;
+  }
+  .link:hover { transform: translateY(-2px); box-shadow: 0 0 0 1px var(--accent), 0 10px 26px rgba(0,0,0,.35); }
+  .link:active { transform: translateY(0); }
+  .link-main { display: flex; gap: var(--space-6); align-items: flex-start; }
+  .icon {
+    display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; flex: none;
+    border-radius: var(--radius-md); background: color-mix(in srgb, var(--accent-200) 14%, transparent);
+    color: var(--accent-200); font-size: 19px;
+  }
+  .link-text { display: flex; flex-direction: column; gap: var(--space-2); }
+  .num { font: 500 10px/1 var(--font); letter-spacing: .14em; color: var(--accent-400); }
+  .title { font: 500 20px/1.2 var(--font); letter-spacing: -.015em; color: var(--accent-200); }
+  .desc { font: 400 13.5px/1.5 var(--font); color: var(--accent-200); opacity: .85; max-width: 52ch; }
+  .go { font-size: 17px; line-height: 1; color: var(--accent-400); }
+  footer {
+    margin-top: auto; padding-top: calc(var(--space-8) * 1.5);
+    display: flex; justify-content: space-between; align-items: center; gap: var(--space-6);
+    font: 500 11px/1 var(--font); color: var(--muted);
+  }
+  footer a { display: flex; align-items: center; gap: var(--space-2); text-decoration: none; color: inherit; }
+  footer a:hover { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  ::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+  @media (max-width: 600px) {
+    .page { padding: calc(var(--space-8) * 1.3) calc(var(--space-8) * 1.1); gap: calc(var(--space-8) * 1.3); }
+    .link { padding: var(--space-8); gap: var(--space-4); }
+    .link-main { gap: var(--space-4); }
+    .desc { max-width: none; }
+    .title { font-size: 18px; }
+    footer { flex-direction: column; align-items: flex-start; gap: var(--space-4); }
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="top">
+    <div class="brand"><span class="mark"></span>Dhimas Bagus</div>
+    <button type="button" class="theme-btn" id="themeBtn" aria-label="Toggle light or dark theme">
+      <i class="ph ph-circle-half-tilt" style="font-size:15px"></i>Theme
+    </button>
+  </div>
+
+  <div class="intro">
+    <h1>Tools &amp;<br>Projects</h1>
+    <p class="lede">Small tools I build and release. Pick one to open.</p>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="links">
+    <a class="link one" href="https://dhimasbagus402.github.io/MT-Manager-Windows/" target="_blank" rel="noopener">
+      <span class="link-main">
+        <span class="icon"><i class="ph ph-monitor"></i></span>
+        <span class="link-text">
+          <span class="num">01</span>
+          <span class="title">MT Manager for Windows</span>
+          <span class="desc">Metatrader Manager - One app to manage every MetaTrader terminal you run.</span>
+        </span>
+      </span>
+      <span class="go"><i class="ph ph-arrow-up-right"></i></span>
+    </a>
+
+    <a class="link two" href="https://dhimasbagus402.github.io/clipper-bot/" target="_blank" rel="noopener">
+      <span class="link-main">
+        <span class="icon"><i class="ph ph-scissors"></i></span>
+        <span class="link-text">
+          <span class="num">02</span>
+          <span class="title">Clipper Bot</span>
+          <span class="desc">Turn one long video into a batch of ready-to-post vertical Shorts - local AI pipeline (Whisper + Ollama + ffmpeg) with a Flask dashboard</span>
+        </span>
+      </span>
+      <span class="go"><i class="ph ph-arrow-up-right"></i></span>
+    </a>
+  </div>
+
+  <footer>
+    <a href="https://github.com/dhimasbagus402" target="_blank" rel="noopener"><i class="ph ph-github-logo" style="font-size:14px"></i>@dhimasbagus402</a>
+    <span>Hosted on GitHub Pages</span>
+  </footer>
+
+</div>
+<script>
+  (function () {
+    var root = document.documentElement, key = "dhimas-landing-theme";
+    try { var saved = localStorage.getItem(key); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+    document.getElementById("themeBtn").addEventListener("click", function () {
+      var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem(key, next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
